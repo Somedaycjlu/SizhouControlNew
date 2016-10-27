@@ -24,9 +24,9 @@ void QBMpu6050DataFilter(QB_SZ_STATUS *qb_sz_status)
 	
 	for (i = 0; i < 10; i++)
 	{
-		MPU_Get_Gyroscope(&gyr_x_read, &gyr_y_read, &gyr_z_read);				/*读回角度值并保存起来	*/	
-																									
-		MPU_Get_Accelerometer(&acc_x_read, &acc_y_read, &acc_z_read);		/*读回角速度值并保存起来*/
+//		MPU_Get_Gyroscope(&gyr_x_read, &gyr_y_read, &gyr_z_read);				/*读回角度值并保存起来	*/	
+//																									
+//		MPU_Get_Accelerometer(&acc_x_read, &acc_y_read, &acc_z_read);		/*读回角速度值并保存起来*/
 		
 		gyr_x_mid += gyr_x_read;																				/*数据累加，滤波				*/
 		gyr_y_mid += gyr_y_read;
@@ -96,9 +96,9 @@ void QBNormalize(QB_SZ_STATUS *qb_sz_status)
 	
 	for (i = 0; i < 100; i++)
 	{
-		MPU_Get_Gyroscope(&gyr_x_read, &gyr_y_read, &gyr_z_read);				/*读回角度值并保存起来	*/	
-																									
-		MPU_Get_Accelerometer(&acc_x_read, &acc_y_read, &acc_z_read);		/*读回角速度值并保存起来*/
+//		MPU_Get_Gyroscope(&gyr_x_read, &gyr_y_read, &gyr_z_read);				/*读回角度值并保存起来	*/	
+//																									
+//		MPU_Get_Accelerometer(&acc_x_read, &acc_y_read, &acc_z_read);		/*读回角速度值并保存起来*/
 		
 		gyr_x_mid += gyr_x_read;																				/*数据累加，滤波				*/
 		gyr_y_mid += gyr_y_read;
