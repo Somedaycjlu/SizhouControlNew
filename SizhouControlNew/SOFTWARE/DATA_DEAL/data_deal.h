@@ -5,5 +5,5 @@
 
 void QBNormalize(QB_SZ_STATUS *qb_sz_status);
 void QBMpu6050DataFilter(QB_SZ_STATUS *qb_sz_status);
-
+void QBEulerPackge(float *pitch, float *roll, float *yaw );	
 #endif

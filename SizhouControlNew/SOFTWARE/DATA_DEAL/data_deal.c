@@ -1,6 +1,7 @@
 #include "data_deal.h"
 #include "sizhou_data_and_status.h"
 #include "mpu6050.h"
+#include "hardware_conf.h"
 
 /**
   * @brief 	对传感器采集回来的值进行滤波
@@ -86,11 +87,12 @@ void QBNormalize(QB_SZ_STATUS *qb_sz_status)
 	s16 gyr_x_read, gyr_y_read, gyr_z_read;							/*角度读回值					*/
 	s16 acc_x_read, acc_y_read, acc_z_read;
 	
-	s32 gyr_x_mid = 0, gyr_y_mid = 0, gyr_z_mid = 0;		/*角速度读回值				*/
+	s32 gyr_x_mid = 0, gyr_y_mid = 0, gyr_z_mid = 0;				/*角速度读回值				*/
 	s32 acc_x_mid = 0, acc_y_mid = 0, acc_z_mid = 0;
 	
 	s16 gyr_x_filter, gyr_y_filter, gyr_z_filter;
 	s16 acc_x_filter, acc_y_filter, acc_z_filter;
+	
 	
 
 	
@@ -124,3 +126,34 @@ void QBNormalize(QB_SZ_STATUS *qb_sz_status)
 	qb_sz_status->init_acc.Y = acc_y_filter;
 	qb_sz_status->init_acc.Z = acc_z_filter;
 }
+
+/**
+  * @brief 	对欧拉角的计算进行了一个封装，便于调用
+  * @param 	roll：x轴方向
+			pitch：y轴方向
+			yaw：z轴方向
+  * @retval None
+  */
+void QBEulerPackge(float *pitch, float *roll, float *yaw )	
+{
+	#define q30  1073741824.0f
+	float q0=1.0f,q1=0.0f,q2=0.0f,q3=0.0f;
+	unsigned long sensor_timestamp;
+	short gyro[3], accel[3], sensors;
+	unsigned char more;
+	long quat[4];
+
+	dmp_read_fifo(gyro, accel, quat, &sensor_timestamp, &sensors,&more);		
+	if (sensors & INV_WXYZ_QUAT )
+	{
+		q0=quat[0] / q30;
+		q1=quat[1] / q30;
+		q2=quat[2] / q30;
+		q3=quat[3] / q30;
+
+		*pitch = asin(-2 * q1 * q3 + 2 * q0* q2)* 57.3; // pitch
+		*roll = atan2(2 * q2 * q3 + 2 * q0 * q1, -2 * q1 * q1 - 2 * q2* q2 + 1)* 57.3; // roll
+		*yaw = 	atan2(2*(q1*q2 + q0*q3),q0*q0+q1*q1-q2*q2-q3*q3) * 57.3;		//感觉没有价值，注掉
+	}
+}
+
