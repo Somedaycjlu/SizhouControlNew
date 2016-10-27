@@ -16,7 +16,7 @@ int main()
 																								/*否则delay函数无法使用						*/
 	OLED_Init();																	/*OLED初始化											*/
 	
-	//MPU_Init();																		/*MPU6050初始化										*/
+	MPU_Init();																		/*MPU6050初始化										*/
 	
 	QBPwmInit(9999,17);														/*四路pwm初始化，频率400Hz				*/
 	
