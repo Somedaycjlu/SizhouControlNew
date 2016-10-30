@@ -145,40 +145,40 @@ void USART1_IRQHandler(void)                	//串口1中断服务程序
 
 void AnBT_Uart1_Send_Char(unsigned char ascii_code) 		//圆点博士:发送一个字符
 {
-	USART_SendData(USART1,ascii_code);
-  while(USART_GetFlagStatus(USART1, USART_FLAG_TXE) == RESET){}								//圆点博士:等待直到发送完成
+//	USART_SendData(USART1,ascii_code);
+//  while(USART_GetFlagStatus(USART1, USART_FLAG_TXE) == RESET){}								//圆点博士:等待直到发送完成
 }
 
-	void AnBT_Uart1_Send_String(unsigned char* str_buf , unsigned char str_len)		//圆点博士:发送一个指定长度的字符串
+void AnBT_Uart1_Send_String(unsigned char* str_buf , unsigned char str_len)		//圆点博士:发送一个指定长度的字符串
 {
-	unsigned char i;
-	if(str_len>AnBT_COM_Buf_Length) str_len=AnBT_COM_Buf_Length;
-	AnBT_Uart1_Send_Char(13);																	//圆点博士:发送回车字符
-	AnBT_Uart1_Send_Char(':');  															//圆点博士:发送字符:
-  for(i=0;i<str_len;i++) AnBT_Uart1_Send_Char(str_buf[i]); 	//圆点博士:发送字符:
-	AnBT_Uart1_Send_Char('/');																//圆点博士:发送字符/
-	AnBT_Uart1_Send_Char(13);																	//圆点博士:发送回车字符
+//	unsigned char i;
+//	if(str_len>AnBT_COM_Buf_Length) str_len=AnBT_COM_Buf_Length;
+//	AnBT_Uart1_Send_Char(13);																	//圆点博士:发送回车字符
+//	AnBT_Uart1_Send_Char(':');  															//圆点博士:发送字符:
+//  for(i=0;i<str_len;i++) AnBT_Uart1_Send_Char(str_buf[i]); 	//圆点博士:发送字符:
+//	AnBT_Uart1_Send_Char('/');																//圆点博士:发送字符/
+//	AnBT_Uart1_Send_Char(13);																	//圆点博士:发送回车字符
 }
 
 void AnBT_Uart1_Send_Num(unsigned char number) 	//圆点博士:发送一个字符
 {
-	unsigned char num_low,num_high;
-	num_low=number&0x0f;													//圆点博士:取数据低位
-	num_high=(number&0xf0)>>4;										//圆点博士:取数据高位
-	if(num_high<10)USART_SendData(USART1,num_high+48);
-	else USART_SendData(USART1,num_high+55);
-  while(USART_GetFlagStatus(USART1, USART_FLAG_TXE) == RESET){}								//圆点博士:等待直到发送完成
-	if(num_low<10)USART_SendData(USART1,num_low+48);
-	else USART_SendData(USART1,num_low+55);
-  while(USART_GetFlagStatus(USART1, USART_FLAG_TXE) == RESET){}								//圆点博士:等待直到发送完成
+//	unsigned char num_low,num_high;
+//	num_low=number&0x0f;													//圆点博士:取数据低位
+//	num_high=(number&0xf0)>>4;										//圆点博士:取数据高位
+//	if(num_high<10)USART_SendData(USART1,num_high+48);
+//	else USART_SendData(USART1,num_high+55);
+//  while(USART_GetFlagStatus(USART1, USART_FLAG_TXE) == RESET){}								//圆点博士:等待直到发送完成
+//	if(num_low<10)USART_SendData(USART1,num_low+48);
+//	else USART_SendData(USART1,num_low+55);
+//  while(USART_GetFlagStatus(USART1, USART_FLAG_TXE) == RESET){}								//圆点博士:等待直到发送完成
 }
 
 void AnBT_Uart1_Send_Nums(unsigned char* nums_buf , unsigned char nums_len)		//圆点博士:发送一个指定长度的字符串
 {
-	unsigned char i;
-	if(nums_len>AnBT_COM_Buf_Length) nums_len=AnBT_COM_Buf_Length;
-	AnBT_Uart1_Send_Char(13);																										//圆点博士:发送回车字符
-	AnBT_Uart1_Send_Char(':');  																								//圆点博士:发送字符:
-  for(i=0;i<nums_len;i++) AnBT_Uart1_Send_Num(nums_buf[nums_len-i-1]); 				//圆点博士:发送数字
-	AnBT_Uart1_Send_Char('/');																									//圆点博士:发送字符/
+//	unsigned char i;
+//	if(nums_len>AnBT_COM_Buf_Length) nums_len=AnBT_COM_Buf_Length;
+//	AnBT_Uart1_Send_Char(13);																										//圆点博士:发送回车字符
+//	AnBT_Uart1_Send_Char(':');  																								//圆点博士:发送字符:
+//  for(i=0;i<nums_len;i++) AnBT_Uart1_Send_Num(nums_buf[nums_len-i-1]); 				//圆点博士:发送数字
+//	AnBT_Uart1_Send_Char('/');																									//圆点博士:发送字符/
 }

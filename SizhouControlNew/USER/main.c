@@ -48,22 +48,23 @@ int main()
 	 
 	while(1)
 	{
-			float Yaw=0.00;
-			float Roll,Pitch;
+		float Yaw=0.00;
+		float Roll,Pitch;
+		
+		if(g_qb_sz_status.control_flag >= 1)
+		{
 			QBEulerPackge(&Pitch, &Roll, &Yaw);
 			g_qb_sz_status.euler.Pitch = Pitch;
 			g_qb_sz_status.euler.Roll  = Roll;
 			g_qb_sz_status.euler.Yaw   = Yaw;
-			if(g_qb_sz_status.control_flag >= 1)
-			{
-				g_qb_sz_status.control_flag = 0;
-				QBSiZhouBaseControl(&g_qb_sz_status); 
-			}		
+			g_qb_sz_status.control_flag = 0;
+			QBSiZhouBaseControl(&g_qb_sz_status); 
+		}		
 
-										OLED_ShowString(40, 0, "Gyr:");	OLED_ShowString(80, 0, "Acc:");
-			OLED_ShowString(0, 1, "x:"); OLED_ShowNum(40,1, Pitch, 5); 								//x
-			OLED_ShowString(0, 2, "y:"); OLED_ShowNum(40,2, Roll, 5); 								//y
-			OLED_ShowString(0, 3, "z:"); OLED_ShowNum(40,3, Yaw, 5); 	
+									OLED_ShowString(40, 0, "Gyr:");	OLED_ShowString(80, 0, "Acc:");
+		OLED_ShowString(0, 1, "x:"); OLED_ShowNum(40,1, Pitch, 5); 								//x
+		OLED_ShowString(0, 2, "y:"); OLED_ShowNum(40,2, Roll, 5); 								//y
+		OLED_ShowString(0, 3, "z:"); OLED_ShowNum(40,3, Yaw, 5); 	
 		
 					  
 	}
